@@ -9,38 +9,177 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppWorkflowsRouteImport } from './routes/_app.workflows'
+import { Route as AppToolsRouteImport } from './routes/_app.tools'
+import { Route as AppStudioRouteImport } from './routes/_app.studio'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppRunsRouteImport } from './routes/_app.runs'
+import { Route as AppNexusRouteImport } from './routes/_app.nexus'
+import { Route as AppKnowledgeRouteImport } from './routes/_app.knowledge'
+import { Route as AppChatRouteImport } from './routes/_app.chat'
+import { Route as AppAnalyticsRouteImport } from './routes/_app.analytics'
+import { Route as AppAgentsRouteImport } from './routes/_app.agents'
 
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppWorkflowsRoute = AppWorkflowsRouteImport.update({
+  id: '/workflows',
+  path: '/workflows',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppToolsRoute = AppToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudioRoute = AppStudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRunsRoute = AppRunsRouteImport.update({
+  id: '/runs',
+  path: '/runs',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNexusRoute = AppNexusRouteImport.update({
+  id: '/nexus',
+  path: '/nexus',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppKnowledgeRoute = AppKnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChatRoute = AppChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAgentsRoute = AppAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agents': typeof AppAgentsRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/chat': typeof AppChatRoute
+  '/knowledge': typeof AppKnowledgeRoute
+  '/nexus': typeof AppNexusRoute
+  '/runs': typeof AppRunsRoute
+  '/settings': typeof AppSettingsRoute
+  '/studio': typeof AppStudioRoute
+  '/tools': typeof AppToolsRoute
+  '/workflows': typeof AppWorkflowsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agents': typeof AppAgentsRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/chat': typeof AppChatRoute
+  '/knowledge': typeof AppKnowledgeRoute
+  '/nexus': typeof AppNexusRoute
+  '/runs': typeof AppRunsRoute
+  '/settings': typeof AppSettingsRoute
+  '/studio': typeof AppStudioRoute
+  '/tools': typeof AppToolsRoute
+  '/workflows': typeof AppWorkflowsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/_app/agents': typeof AppAgentsRoute
+  '/_app/analytics': typeof AppAnalyticsRoute
+  '/_app/chat': typeof AppChatRoute
+  '/_app/knowledge': typeof AppKnowledgeRoute
+  '/_app/nexus': typeof AppNexusRoute
+  '/_app/runs': typeof AppRunsRoute
+  '/_app/settings': typeof AppSettingsRoute
+  '/_app/studio': typeof AppStudioRoute
+  '/_app/tools': typeof AppToolsRoute
+  '/_app/workflows': typeof AppWorkflowsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agents'
+    | '/analytics'
+    | '/chat'
+    | '/knowledge'
+    | '/nexus'
+    | '/runs'
+    | '/settings'
+    | '/studio'
+    | '/tools'
+    | '/workflows'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agents'
+    | '/analytics'
+    | '/chat'
+    | '/knowledge'
+    | '/nexus'
+    | '/runs'
+    | '/settings'
+    | '/studio'
+    | '/tools'
+    | '/workflows'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_app/agents'
+    | '/_app/analytics'
+    | '/_app/chat'
+    | '/_app/knowledge'
+    | '/_app/nexus'
+    | '/_app/runs'
+    | '/_app/settings'
+    | '/_app/studio'
+    | '/_app/tools'
+    | '/_app/workflows'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +187,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/workflows': {
+      id: '/_app/workflows'
+      path: '/workflows'
+      fullPath: '/workflows'
+      preLoaderRoute: typeof AppWorkflowsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/tools': {
+      id: '/_app/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof AppToolsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/studio': {
+      id: '/_app/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof AppStudioRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/runs': {
+      id: '/_app/runs'
+      path: '/runs'
+      fullPath: '/runs'
+      preLoaderRoute: typeof AppRunsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/nexus': {
+      id: '/_app/nexus'
+      path: '/nexus'
+      fullPath: '/nexus'
+      preLoaderRoute: typeof AppNexusRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/knowledge': {
+      id: '/_app/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof AppKnowledgeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/chat': {
+      id: '/_app/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AppChatRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/analytics': {
+      id: '/_app/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/agents': {
+      id: '/_app/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AppAgentsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAgentsRoute: typeof AppAgentsRoute
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppChatRoute: typeof AppChatRoute
+  AppKnowledgeRoute: typeof AppKnowledgeRoute
+  AppNexusRoute: typeof AppNexusRoute
+  AppRunsRoute: typeof AppRunsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppStudioRoute: typeof AppStudioRoute
+  AppToolsRoute: typeof AppToolsRoute
+  AppWorkflowsRoute: typeof AppWorkflowsRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAgentsRoute: AppAgentsRoute,
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppChatRoute: AppChatRoute,
+  AppKnowledgeRoute: AppKnowledgeRoute,
+  AppNexusRoute: AppNexusRoute,
+  AppRunsRoute: AppRunsRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppStudioRoute: AppStudioRoute,
+  AppToolsRoute: AppToolsRoute,
+  AppWorkflowsRoute: AppWorkflowsRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
